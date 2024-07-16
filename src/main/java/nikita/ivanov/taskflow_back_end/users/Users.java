@@ -31,6 +31,7 @@ public class Users implements UserDetails {
 
     //qui vanno le relazinoi tra entità
 
+
     //Costruttori
     public Users(){}
 

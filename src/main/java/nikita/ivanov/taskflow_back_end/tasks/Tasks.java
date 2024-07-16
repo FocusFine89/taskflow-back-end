@@ -1,9 +1,8 @@
 package nikita.ivanov.taskflow_back_end.tasks;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import nikita.ivanov.taskflow_back_end.users.Users;
+import org.apache.catalina.User;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -21,6 +20,11 @@ public class Tasks {
     @Column(name = "is_done")
     private boolean isDone;
 
+    //qui vanno le relazioni tra Entità
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private Users user;
+
     //Costruttori
     public Tasks(){}
 
@@ -34,7 +38,7 @@ public class Tasks {
     public UUID getId() {
         return id;
     }
-    
+
     public String getName() {
         return name;
     }
