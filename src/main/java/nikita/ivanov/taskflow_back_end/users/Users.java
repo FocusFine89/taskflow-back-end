@@ -29,8 +29,7 @@ public class Users implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UsersRoleEnum role;
 
-    //qui vanno le relazinoi tra entità
-
+    //TODO aggiungere immagine di profilo
 
     //Costruttori
     public Users(){}
