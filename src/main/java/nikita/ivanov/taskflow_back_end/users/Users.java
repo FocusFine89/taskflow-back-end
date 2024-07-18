@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "users")
@@ -16,7 +15,8 @@ import java.util.UUID;
 public class Users implements UserDetails {
     //Attributi
     @Id
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     @Column(name = "name")
     private String name;
     @Column(name = "surname")
@@ -44,7 +44,7 @@ public class Users implements UserDetails {
 
     //Metodi
 
-    public UUID getId() {
+    public long getId() {
         return id;
     }
 
@@ -109,5 +109,17 @@ public class Users implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "Users{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                '}';
     }
 }

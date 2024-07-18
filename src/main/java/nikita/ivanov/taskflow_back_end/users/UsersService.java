@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
+
 
 @Service
 public class UsersService {
@@ -41,7 +41,7 @@ public class UsersService {
     }
 
     //Cerca utente per ID
-    public Users findById(String id){
+    public Users findById(long id){
         return this.usersRepository.findById(id).orElseThrow(()-> new NotFoundException(id));
     }
 
@@ -51,7 +51,7 @@ public class UsersService {
     }
 
     //Elimina Utente
-    public void findByIdAndDelete(String id){
+    public void findByIdAndDelete(long id){
         Users deleteUser =  this.findById(id);
         this.usersRepository.delete(deleteUser);
     }

@@ -4,10 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import nikita.ivanov.taskflow_back_end.projects.Projects;
 import nikita.ivanov.taskflow_back_end.users.Users;
-import org.apache.catalina.User;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Entity
 @Table(name = "tasks")
@@ -15,7 +13,8 @@ import java.util.UUID;
 public class Tasks {
     //Attributi
     @Id
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     @Column(name = "name")
     private String name;
     @Column(name = "date")
@@ -53,7 +52,7 @@ public class Tasks {
 
     //Metodi
 
-    public UUID getId() {
+    public long getId() {
         return id;
     }
 

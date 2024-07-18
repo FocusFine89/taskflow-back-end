@@ -5,7 +5,7 @@ import org.aspectj.weaver.ast.Not;
 import java.util.UUID;
 
 public class NotFoundException extends RuntimeException{
-    public NotFoundException(UUID id){
+    public NotFoundException(long id){
         super("Record con id: "+ id + " non trovato");
     }
 

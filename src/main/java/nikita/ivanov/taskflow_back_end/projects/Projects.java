@@ -1,22 +1,18 @@
 package nikita.ivanov.taskflow_back_end.projects;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import nikita.ivanov.taskflow_back_end.tasks.Tasks;
-import org.springframework.scheduling.config.Task;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "projects")
 public class Projects {
     //Attributi
     @Id
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     private String name;
 
     //qui vanno le relazioni tra entità
@@ -33,7 +29,7 @@ public class Projects {
     //Metodi
 
 
-    public UUID getId() {
+    public long getId() {
         return id;
     }
 

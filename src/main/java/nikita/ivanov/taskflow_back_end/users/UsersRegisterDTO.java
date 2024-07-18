@@ -12,7 +12,6 @@ public record UsersRegisterDTO(
         @Pattern(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", message = "Email non valida")
         String email,
         @NotEmpty(message = "Il campo della password non può essere vuoto")
-        @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$", message = "Password non Valida")
         String password
 ) {
 }

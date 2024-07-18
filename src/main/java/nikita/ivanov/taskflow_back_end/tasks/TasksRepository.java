@@ -12,10 +12,13 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface TasksRepository extends JpaRepository<Tasks, UUID> {
-    Optional<Tasks> findById(String id);
+public interface TasksRepository extends JpaRepository<Tasks, Long> {
+    Optional<Tasks> findById(long id);
 
 
-    @Query(value = "SELECT t FROM tasks t WHERE t.user.id = :userId")
-    List<Tasks> findTaskByUserId(@Param("userId") UUID userId);
+//    @Query(value = "SELECT t FROM tasks t WHERE t.user.id = :userId")
+//    List<Tasks> findTaskByUserId(@Param("userId") long userId);
+
+    @Query("SELECT t FROM Tasks t WHERE t.user.id = :userId")
+    List<Tasks> findTaskByUserId(@Param("userId") long userId);
 }
