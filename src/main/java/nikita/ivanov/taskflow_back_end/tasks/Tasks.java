@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "tasks")
-@JsonIgnoreProperties({"project"})
+@JsonIgnoreProperties({"project", "user"})
 public class Tasks {
     //Attributi
     @Id
@@ -78,5 +78,13 @@ public class Tasks {
 
     public void setDone(boolean done) {
         isDone = done;
+    }
+
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
     }
 }

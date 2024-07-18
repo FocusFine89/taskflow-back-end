@@ -1,6 +1,7 @@
 package nikita.ivanov.taskflow_back_end.tasks;
 
 import nikita.ivanov.taskflow_back_end.exceptions.NotFoundException;
+import nikita.ivanov.taskflow_back_end.exceptions.UnauthorizedException;
 import nikita.ivanov.taskflow_back_end.users.Users;
 import nikita.ivanov.taskflow_back_end.users.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,12 +45,17 @@ public class TasksService {
 
 
     //Modifica Task (POST)
-    public Tasks postTask(TasksPostRequestDTO updatedTask, long idTask){
+    public Tasks postTask(TasksPostRequestDTO updatedTask, long idTask, Users user){
         Tasks task = this.findTask(idTask);
-        task.setName(updatedTask.name());
-        task.setDate(updatedTask.date());
-        task.setDone(updatedTask.done());
-        return this.tasksRepository.save(task);
+        if(task.getUser().getId() == user.getId()){
+            task.setName(updatedTask.name());
+            task.setDate(updatedTask.date());
+            task.setDone(updatedTask.done());
+            return this.tasksRepository.save(task);
+        }else{
+            throw new UnauthorizedException("Non hai il permesso per modificare questa Task");
+        }
+
 
     }
 
