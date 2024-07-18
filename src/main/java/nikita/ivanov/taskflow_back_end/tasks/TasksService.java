@@ -39,14 +39,20 @@ public class TasksService {
 
 
     //Cerca Task per ID
-    public Tasks findTask(long id){
-        return this.tasksRepository.findById(id).orElseThrow(()-> new NotFoundException(id));
+    public Tasks findTask(long id, Users user){
+
+        Tasks task = this.tasksRepository.findById(id).orElseThrow(()-> new NotFoundException(id));
+        if(task.getUser().getId() == user.getId()){
+            return task;
+        }else{
+            throw new UnauthorizedException("Non hai il permesso per accedere a questa Task");
+        }
     }
 
 
     //Modifica Task (POST)
     public Tasks postTask(TasksPostRequestDTO updatedTask, long idTask, Users user){
-        Tasks task = this.findTask(idTask);
+        Tasks task = this.tasksRepository.findById(idTask).orElseThrow(()-> new NotFoundException(idTask));
         if(task.getUser().getId() == user.getId()){
             task.setName(updatedTask.name());
             task.setDate(updatedTask.date());
@@ -61,9 +67,14 @@ public class TasksService {
 
 
     //Elimina Task
-    public void deleteTask(long id){
-        Tasks task =  this.findTask(id);
-        this.tasksRepository.delete(task);
+    public void deleteTask(long id, Users user){
+        Tasks task =  this.tasksRepository.findById(id).orElseThrow(()-> new NotFoundException(id));
+        if(task.getUser().getId() == user.getId()){
+            this.tasksRepository.delete(task);
+        }else{
+            throw new UnauthorizedException("Non hai il permesso di eliminare questa Task");
+        }
+
     }
 
 }
