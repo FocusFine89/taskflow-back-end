@@ -32,7 +32,7 @@ public class TasksService {
 
     //Lista di tutte le Task per current user
     public List<Tasks> findTaskByUserId(long id){
-        return this.tasksRepository.findTaskByUserId(id);
+        return this.tasksRepository.findTasksByUserIdAndProjectIsNull(id);
     }
 
 

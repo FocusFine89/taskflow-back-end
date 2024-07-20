@@ -15,10 +15,9 @@ import java.util.UUID;
 public interface TasksRepository extends JpaRepository<Tasks, Long> {
     Optional<Tasks> findById(long id);
 
-
-//    @Query(value = "SELECT t FROM tasks t WHERE t.user.id = :userId")
-//    List<Tasks> findTaskByUserId(@Param("userId") long userId);
-
     @Query("SELECT t FROM Tasks t WHERE t.user.id = :userId")
     List<Tasks> findTaskByUserId(@Param("userId") long userId);
+
+    @Query("SELECT t FROM Tasks t WHERE t.user.id = :userId AND t.project IS NULL")
+    List<Tasks> findTasksByUserIdAndProjectIsNull(@Param("userId") Long userId);
 }
