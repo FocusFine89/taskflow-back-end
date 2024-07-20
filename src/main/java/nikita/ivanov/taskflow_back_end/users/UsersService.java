@@ -40,17 +40,27 @@ public class UsersService {
         return this.usersRepository.findAll(pageable);
     }
 
-    //Cerca utente per ID
+    //Cerca utente per ID (Solo gli admin Potranno cercare un utente per ID)
     public Users findById(long id){
         return this.usersRepository.findById(id).orElseThrow(()-> new NotFoundException(id));
     }
 
-    //Cerca utente per email
+    //Cerca utente per email (Solo gli admin Potranno cercare un utente per email)
     public Users findByEmail(String email){
         return this.usersRepository.findByEmail(email).orElseThrow(()-> new NotFoundException(email));
     }
 
-    //Elimina Utente
+    //Modifica utente (Solo per utenti, un utente potrà modificare il suo profilo)
+    //Metterci il controllo che assicura che solo il current user può modificare il suo profilo
+    //lo user sarà passato attraverso currentUser
+    public Users findByIdAndUpdate(UsersUpdateDTO updatedUser, Users user){
+        Users foundUser = this.findById(user.getId());
+        foundUser.setName(updatedUser.name());
+        foundUser.setSurname(updatedUser.surname());
+        return this.usersRepository.save(foundUser);
+    }
+
+    //Elimina Utente (Solo gli admin potranno eliminare un utente)
     public void findByIdAndDelete(long id){
         Users deleteUser =  this.findById(id);
         this.usersRepository.delete(deleteUser);

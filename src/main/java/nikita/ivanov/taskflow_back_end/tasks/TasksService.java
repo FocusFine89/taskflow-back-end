@@ -21,7 +21,6 @@ public class TasksService {
 
     //Creazione Tasks
     public Tasks createTask(TasksCreateDTO task, Users user){
-        System.out.println("qwerty");
         Users newUSer = this.usersService.findById(user.getId());
         Tasks newTask = new Tasks(task.name(), task.date(),newUSer);
         System.out.println(newTask);
