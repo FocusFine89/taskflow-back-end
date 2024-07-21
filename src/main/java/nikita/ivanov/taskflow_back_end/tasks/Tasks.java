@@ -42,7 +42,7 @@ public class Tasks {
         this.user = user;
     }
 
-    public Tasks(String name, LocalDate date, boolean isDone, Users user, Projects project) {
+    public Tasks(String name, LocalDate date, Users user, Projects project) {
         this.name = name;
         this.date = date;
         this.isDone = false;

@@ -2,6 +2,8 @@ package nikita.ivanov.taskflow_back_end.tasks;
 
 import nikita.ivanov.taskflow_back_end.exceptions.NotFoundException;
 import nikita.ivanov.taskflow_back_end.exceptions.UnauthorizedException;
+import nikita.ivanov.taskflow_back_end.projects.Projects;
+import nikita.ivanov.taskflow_back_end.projects.ProjectsService;
 import nikita.ivanov.taskflow_back_end.users.Users;
 import nikita.ivanov.taskflow_back_end.users.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class TasksService {
     @Autowired
     UsersService usersService;
 
+    @Autowired
+    ProjectsService projectsService;
+
     //Creazione Tasks
     public Tasks createTask(TasksCreateDTO task, Users user){
         Users newUSer = this.usersService.findById(user.getId());
@@ -26,6 +31,15 @@ public class TasksService {
         System.out.println(newTask);
         System.out.println(newUSer);
         System.out.println("ciao");
+        return this.tasksRepository.save(newTask);
+
+    }
+
+    //Creazione Task per Project
+    public Tasks createTaskForProject(TasksCreateDTO task, Users user, long projectId){
+        Users foundUser = this.usersService.findById(user.getId());
+        Projects foundProject = this.projectsService.findById(projectId);
+        Tasks newTask = new Tasks(task.name(), task.date(), foundUser, foundProject);
         return this.tasksRepository.save(newTask);
 
     }

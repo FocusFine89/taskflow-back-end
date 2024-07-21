@@ -20,4 +20,7 @@ public interface TasksRepository extends JpaRepository<Tasks, Long> {
 
     @Query("SELECT t FROM Tasks t WHERE t.user.id = :userId AND t.project IS NULL")
     List<Tasks> findTasksByUserIdAndProjectIsNull(@Param("userId") Long userId);
+
+    @Query("SELECT t FROM Tasks t WHERE t.user.id = :userId AND t.project.id = :projectId")
+    List<Tasks> findTasksByUserIdAndProject(@Param("userId") Long userId, @Param("projectId") Long projectId);
 }
