@@ -2,6 +2,7 @@ package nikita.ivanov.taskflow_back_end.projects;
 
 import jakarta.persistence.*;
 import nikita.ivanov.taskflow_back_end.tasks.Tasks;
+import nikita.ivanov.taskflow_back_end.users.Users;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,11 +20,16 @@ public class Projects {
     @OneToMany(mappedBy = "project")
     private List<Tasks> tasksList = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private Users user;
+
     //Costruttori
     public Projects(){}
 
-    public Projects(String name) {
+    public Projects(String name, Users user) {
         this.name = name;
+        this.user = user;
     }
 
     //Metodi
