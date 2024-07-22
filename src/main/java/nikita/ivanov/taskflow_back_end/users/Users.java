@@ -2,6 +2,7 @@ package nikita.ivanov.taskflow_back_end.users;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import nikita.ivanov.taskflow_back_end.habits.Habits;
 import nikita.ivanov.taskflow_back_end.projects.Projects;
 import nikita.ivanov.taskflow_back_end.tasks.Tasks;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,7 +14,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
-@JsonIgnoreProperties({ "authorities", "enabled", "accountNonExpired", "credentialsNonExpired", "accountNonLocked", "password", "role", "tasksList", "projectsList"})
+@JsonIgnoreProperties({ "authorities", "enabled", "accountNonExpired", "credentialsNonExpired", "accountNonLocked", "password", "role", "tasksList", "projectsList", "habitsList"})
 public class Users implements UserDetails {
     //Attributi
     @Id
@@ -38,6 +39,9 @@ public class Users implements UserDetails {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Projects> projectsList;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Habits> habitsList;
 
 
     //Costruttori
@@ -80,6 +84,30 @@ public class Users implements UserDetails {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Tasks> getTasksList() {
+        return tasksList;
+    }
+
+    public void setTasksList(List<Tasks> tasksList) {
+        this.tasksList = tasksList;
+    }
+
+    public List<Projects> getProjectsList() {
+        return projectsList;
+    }
+
+    public void setProjectsList(List<Projects> projectsList) {
+        this.projectsList = projectsList;
+    }
+
+    public List<Habits> getHabitsList() {
+        return habitsList;
+    }
+
+    public void setHabitsList(List<Habits> habitsList) {
+        this.habitsList = habitsList;
     }
 
     @Override
