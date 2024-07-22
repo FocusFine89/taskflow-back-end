@@ -58,23 +58,22 @@ public class ProjectsController {
     //Modifica Project
     @PostMapping("/modifie/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Projects updateProject(@PathVariable long id, @RequestBody ProjectsCreateDTO updatedProject){
-        return this.projectsService.findByIdAndUpdate(id,updatedProject);
+    public Projects updateProject(@PathVariable long id, @RequestBody ProjectsCreateDTO updatedProject, @AuthenticationPrincipal Users user){
+        return this.projectsService.findByIdAndUpdate(id,updatedProject, user);
 
     }
 
-
-    //TODO Modifica Task del project
 
 
 
     //Elimina Project
     @DeleteMapping("/{id}")
-    public void deleteProject(@PathVariable long id){
-        this.projectsService.deleteProject(id);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteProject(@PathVariable long id, @AuthenticationPrincipal Users user){
+        this.projectsService.deleteProject(id, user);
     }
 
 
-    //TODO Elimina Task del project
+    //TODO Elimina Task del project (c'è gia il metodo nel service di Tasks)
 
 }

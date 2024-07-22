@@ -39,8 +39,14 @@ public class TasksService {
     public Tasks createTaskForProject(TasksCreateDTO task, Users user, long projectId){
         Users foundUser = this.usersService.findById(user.getId());
         Projects foundProject = this.projectsService.findById(projectId);
-        Tasks newTask = new Tasks(task.name(), task.date(), foundUser, foundProject);
-        return this.tasksRepository.save(newTask);
+        if(foundUser.getId() == foundProject.getUser().getId() ){
+            Tasks newTask = new Tasks(task.name(), task.date(), foundUser, foundProject);
+            return this.tasksRepository.save(newTask);
+        }else{
+            throw new UnauthorizedException("Non hai il Permesso di creare la Task per questo Progetto");
+        }
+
+
 
     }
 

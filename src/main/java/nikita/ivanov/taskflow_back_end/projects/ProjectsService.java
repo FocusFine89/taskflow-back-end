@@ -1,6 +1,7 @@
 package nikita.ivanov.taskflow_back_end.projects;
 
 import nikita.ivanov.taskflow_back_end.exceptions.NotFoundException;
+import nikita.ivanov.taskflow_back_end.exceptions.UnauthorizedException;
 import nikita.ivanov.taskflow_back_end.tasks.Tasks;
 import nikita.ivanov.taskflow_back_end.tasks.TasksCreateDTO;
 import nikita.ivanov.taskflow_back_end.tasks.TasksRepository;
@@ -42,17 +43,29 @@ public class ProjectsService {
 
 
     //Modifica Project
-    public Projects findByIdAndUpdate(long id, ProjectsCreateDTO updatedProject){
+    public Projects findByIdAndUpdate(long id, ProjectsCreateDTO updatedProject, Users user){
         Projects project = this.findById(id);
-        project.setName(updatedProject.name());
-        return this.projectsRepository.save(project);
+        if(user.getId() == project.getUser().getId()){
+            project.setName(updatedProject.name());
+            return this.projectsRepository.save(project);
+        }else{
+            throw new UnauthorizedException("Non hai il Permesso per modificare questo Progetto");
+        }
+
+
     }
 
 
     //Eliminazione Project
-    public void deleteProject(long id){
+    public void deleteProject(long id, Users user){
         Projects project = this.findById(id);
-        this.projectsRepository.delete(project);
+        if(user.getId() == project.getUser().getId()){
+            this.projectsRepository.delete(project);
+        }else{
+            throw new UnauthorizedException("Non hai il Permesso per eliminare questo Progetto");
+        }
+
+
     }
 
     //Lista di tutte le Task per Project

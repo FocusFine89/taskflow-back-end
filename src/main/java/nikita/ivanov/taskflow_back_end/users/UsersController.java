@@ -39,7 +39,6 @@ public class UsersController {
     }
 
     //Elimina un utente (Solo gli admin possono eliminare un utente)
-    //TODO eliminare tutte le cose collegate all'utente a cascata
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize("hasAuthority('ADMIN')")
