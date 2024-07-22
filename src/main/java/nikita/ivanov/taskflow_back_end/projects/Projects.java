@@ -17,7 +17,7 @@ public class Projects {
     private String name;
 
     //qui vanno le relazioni tra entità
-    @OneToMany(mappedBy = "project")
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Tasks> tasksList = new ArrayList<>();
 
     @ManyToOne
@@ -58,4 +58,9 @@ public class Projects {
     public void addTaskToList(Tasks task){
         this.tasksList.add(task);
     }
+
+    public Users getUser() {
+        return user;
+    }
+
 }

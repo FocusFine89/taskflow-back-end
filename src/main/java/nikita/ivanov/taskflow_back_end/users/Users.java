@@ -2,6 +2,8 @@ package nikita.ivanov.taskflow_back_end.users;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import nikita.ivanov.taskflow_back_end.projects.Projects;
+import nikita.ivanov.taskflow_back_end.tasks.Tasks;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,7 +13,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
-@JsonIgnoreProperties({ "authorities", "enabled", "accountNonExpired", "credentialsNonExpired", "accountNonLocked", "password", "role"})
+@JsonIgnoreProperties({ "authorities", "enabled", "accountNonExpired", "credentialsNonExpired", "accountNonLocked", "password", "role", "tasksList", "projectsList"})
 public class Users implements UserDetails {
     //Attributi
     @Id
@@ -30,6 +32,13 @@ public class Users implements UserDetails {
     private UsersRoleEnum role;
 
     //TODO aggiungere immagine di profilo
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Tasks> tasksList;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Projects> projectsList;
+
 
     //Costruttori
     public Users(){}
