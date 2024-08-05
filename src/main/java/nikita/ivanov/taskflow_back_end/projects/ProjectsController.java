@@ -74,6 +74,6 @@ public class ProjectsController {
     }
 
 
-    //TODO Elimina Task del project (c'è gia il metodo nel service di Tasks)
+    
 
 }
