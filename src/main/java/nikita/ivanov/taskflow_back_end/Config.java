@@ -17,7 +17,7 @@ public class Config {
     @Bean
     CorsConfigurationSource corsConfigurationSource(){
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(Arrays.asList("equivalent-tobey-focusfine89-ac280773.koyeb.app/")); //TODO nascondere questo link all'interno dell' env.properties
+        config.setAllowedOrigins(Arrays.asList("http://localhost:3000")); //TODO nascondere questo link all'interno dell' env.properties
         config.setAllowedMethods(Arrays.asList("*"));
         config.setAllowedHeaders(Arrays.asList("*"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
