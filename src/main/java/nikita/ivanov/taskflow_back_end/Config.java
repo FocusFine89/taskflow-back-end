@@ -17,7 +17,7 @@ public class Config {
     @Bean
     CorsConfigurationSource corsConfigurationSource(){
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(Arrays.asList("https://taskflow-agenda-online.netlify.app/")); //TODO nascondere questo link all'interno dell' env.properties
+        config.setAllowedOrigins(Arrays.asList("https://taskflow-agenda-online.netlify.app")); //TODO nascondere questo link all'interno dell' env.properties
         config.setAllowedMethods(Arrays.asList("*"));
         config.setAllowedHeaders(Arrays.asList("*"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
